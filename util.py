@@ -4,6 +4,7 @@ import torch
 import torchaudio
 from torchaudio import transforms
 
+
 class AudioUtil():
     # ----------------------------
     # Load an audio file. Return the signal as a tensor and the sample rate
@@ -22,15 +23,15 @@ class AudioUtil():
         sig, sr = aud
 
         if (sig.shape[0] == new_channel):
-          # Nothing to do
-          return aud
+            # Nothing to do
+            return aud
 
         if (new_channel == 1):
-          # Convert from stereo to mono by selecting only the first channel
-          resig = sig[:1, :]
+            # Convert from stereo to mono by selecting only the first channel
+            resig = sig[:1, :]
         else:
-          # Convert from mono to stereo by duplicating the first channel
-          resig = torch.cat([sig, sig])
+            # Convert from mono to stereo by duplicating the first channel
+            resig = torch.cat([sig, sig])
 
         return ((resig, sr))
 
@@ -42,16 +43,16 @@ class AudioUtil():
         sig, sr = aud
 
         if (sr == newsr):
-          # Nothing to do
-          return aud
+            # Nothing to do
+            return aud
 
         num_channels = sig.shape[0]
         # Resample first channel
-        resig = torchaudio.transforms.Resample(sr, newsr)(sig[:1,:])
+        resig = torchaudio.transforms.Resample(sr, newsr)(sig[:1, :])
         if (num_channels > 1):
-          # Resample the second channel and merge both channels
-          retwo = torchaudio.transforms.Resample(sr, newsr)(sig[1:,:])
-          resig = torch.cat([resig, retwo])
+            # Resample the second channel and merge both channels
+            retwo = torchaudio.transforms.Resample(sr, newsr)(sig[1:, :])
+            resig = torch.cat([resig, retwo])
 
         return ((resig, newsr))
 
@@ -62,11 +63,11 @@ class AudioUtil():
     def pad_trunc(aud, max_ms):
         sig, sr = aud
         num_rows, sig_len = sig.shape
-        max_len = sr//1000 * max_ms
+        max_len = sr // 1000 * max_ms
 
         if (sig_len > max_len):
-          # Truncate the signal to the given length
-          sig = sig[:,:max_len]
+            # Truncate the signal to the given length
+            sig = sig[:, :max_len]
 
         elif (sig_len < max_len):
             # Length of padding to add at the beginning and end of the signal
@@ -86,7 +87,7 @@ class AudioUtil():
     # ----------------------------
     @staticmethod
     def spectro_gram(aud, n_mels=64, n_fft=1024, hop_len=None):
-        sig,sr = aud
+        sig, sr = aud
         top_db = 80
 
         # spec has shape [channel, n_mels, time], where channel is mono, stereo etc

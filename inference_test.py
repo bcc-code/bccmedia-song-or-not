@@ -1,12 +1,13 @@
-import itertools, math
+import itertools, math, sys
 from torch.utils.data import Dataset, DataLoader
 import torch
 from classifier import AudioClassifier
 from util import AudioUtil
 
 SAMPLE_RATE = 44100
-LENGTH = 5 # seconds
+LENGTH = 5  # seconds
 SAMPLES_PER_CHUNK = SAMPLE_RATE * LENGTH
+
 
 def prepareSingleFileForInference(fpath, sample_rate, samples_per_chunk):
     aud = AudioUtil.open(fpath)
@@ -34,10 +35,12 @@ class SingleFileLoader(Dataset):
 
     def __getitem__(self, idx):
         return self.data[idx]
+
+
 # ----------------------------
 # Inference
 # ----------------------------
-def inference2 (model, file_name, device, sample_rate, samples_per_chunk):
+def inference2(model, file_name, device, sample_rate, samples_per_chunk):
     test_dataset = SingleFileLoader(file_name, sample_rate, samples_per_chunk)
     print("Chunks:", len(test_dataset))
 
@@ -64,7 +67,7 @@ def inference2 (model, file_name, device, sample_rate, samples_per_chunk):
             outputs = model(inputs)
 
             # Get the predicted class with the highest score
-            _, prediction = torch.max(outputs,1)
+            _, prediction = torch.max(outputs, 1)
             predictions.append(prediction)
             total_prediction += prediction.shape[0]
 
@@ -80,9 +83,9 @@ def main():
         sys.exit(1)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    myModel = torch.load(sys[1] , map_location=torch.device(device))
-    myModel.eval()
-    res = inference2(myModel, sys[2], device, SAMPLE_RATE, SAMPLES_PER_CHUNK)
+    model = torch.load(sys.argv[1], map_location=torch.device(device))
+    model.eval()
+    res = inference2(model, sys.argv[2], device, SAMPLE_RATE, SAMPLES_PER_CHUNK)
 
     start = 0
     end = 0
@@ -90,18 +93,20 @@ def main():
 
     for x in res:
         d = x[1]
-        ## The sensitivity can be adjusted here a bit
+        # The sensitivity can be adjusted here a bit
         if d <= 2 or current_type == x[0]:
             end += d
         else:
-            print("{} ({}): {} - {}".format(current_type, f(end-start), f(start), f(end)))
+            print("{} ({}): {} - {}".format(current_type, f(end - start), f(start), f(end)))
             start = end
             end = end + x[1]
             current_type = x[0]
 
+
 def f(sec):
     sec *= LENGTH
-    return "{:02.0f}:{:02.0f}".format(math.floor(sec/60), sec%60)
+    return "{:02.0f}:{:02.0f}".format(math.floor(sec / 60), sec % 60)
+
 
 if __name__ == "__main__":
     main()
