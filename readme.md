@@ -52,3 +52,17 @@ song (03:30): 104:35 - 108:05
 
 ```
 
+### Models
+
+The provided models are provided for demonstration purposes and are (C) 2023 BCC Media STI.
+
+## License 
+
+Model files listed here are licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) license:
+
+* songornot_2s.pt
+* songornot_5s.pt
+
+
+Everything with the exception of the above list of files is released under the MIT License.
+
