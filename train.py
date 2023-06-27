@@ -2,7 +2,7 @@ import glob, itertools, random
 
 import torch
 import torch.nn as nn
-from torch.utils.data import random_split
+from torch.utils.data import random_split, DataLoader
 
 from ds import SoundDS
 from classifier import AudioClassifier
@@ -109,8 +109,8 @@ def main():
     train_ds, val_ds = random_split(myds, [num_train, num_val])
 
     # Create training and validation data loaders
-    train_dl = torch.utils.data.DataLoader(train_ds, batch_size=1000, shuffle=True)
-    val_dl = torch.utils.data.DataLoader(val_ds, batch_size=1000, shuffle=False)
+    train_dl = DataLoader(train_ds, batch_size=1000, shuffle=True)
+    val_dl = DataLoader(val_ds, batch_size=1000, shuffle=False)
 
     # Create the model and put it on the GPU if available
     myModel = AudioClassifier()

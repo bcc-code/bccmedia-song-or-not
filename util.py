@@ -12,7 +12,7 @@ class AudioUtil():
     @staticmethod
     def open(audio_file):
         print(audio_file)
-        sig, sr = torchaudio.load(audio_file)
+        sig, sr = torchaudio.load(audio_file) # type: ignore
         return (sig, sr)
 
     # ----------------------------
