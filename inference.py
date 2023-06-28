@@ -1,9 +1,13 @@
 import itertools
-from torch.utils.data import Dataset, DataLoader
+
+import os.path
 import torch
+from torch.utils.data import Dataset, DataLoader
+
 from .util import AudioUtil
 
-def prepareSingleFileForInference(fpath, sample_rate, samples_per_chunk, length):
+
+def prepare_single_file_for_inference(fpath, sample_rate, samples_per_chunk, length):
     aud = AudioUtil.open(fpath)
     reaud = AudioUtil.resample(aud, sample_rate)
     rechan = AudioUtil.rechannel(reaud, 2)
@@ -19,15 +23,24 @@ def prepareSingleFileForInference(fpath, sample_rate, samples_per_chunk, length)
 
     return splitFull
 
+
 class SingleFileLoader(Dataset):
     def __init__(self, file_path: str, sample_rate: int, samples_per_chunk: int, length: int):
-        self.data = prepareSingleFileForInference(file_path, sample_rate, samples_per_chunk, length)
+        self.data = prepare_single_file_for_inference(file_path, sample_rate, samples_per_chunk, length)
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
         return self.data[idx]
+
+
+def load_model(device: torch.device):
+    return torch.load(
+        os.path.dirname(os.path.realpath(__file__)) + "/songornot_5s.pt",
+        map_location=device
+    )
+
 
 def inference(model, file_name: str, device: torch.device, sample_rate: int, samples_per_chunk: int, length: int):
     test_dataset = SingleFileLoader(file_name, sample_rate, samples_per_chunk, length)
