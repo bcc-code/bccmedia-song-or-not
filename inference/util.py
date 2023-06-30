@@ -5,7 +5,7 @@ import torchaudio
 from torchaudio import transforms
 
 
-class AudioUtil():
+class AudioUtil:
     # ----------------------------
     # Load an audio file. Return the signal as a tensor and the sample rate
     # ----------------------------

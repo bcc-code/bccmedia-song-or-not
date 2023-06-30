@@ -1,5 +1,5 @@
 from torch.utils.data import Dataset
-from util import AudioUtil
+from inference.util import AudioUtil
 
 class SoundDS(Dataset):
     def __init__(self, data_paths, duration, sample_rate=44100, channel=2):
