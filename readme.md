@@ -28,7 +28,7 @@ This will produce a `./songornot_trained.pt` file. If you run the script again t
 
 ## Inference
 
-As a sample you can run `./inference_test.py <model> <audio file>`.
+As a sample you can run `./tests/inference_test.py <model> <audio file>`.
 
 Results will be similar to this:
 

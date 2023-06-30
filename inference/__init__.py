@@ -4,7 +4,7 @@ import os.path
 import torch
 from torch.utils.data import Dataset, DataLoader
 
-from .util import AudioUtil
+from ..util import AudioUtil
 
 
 def prepare_single_file_for_inference(fpath, sample_rate, samples_per_chunk, length):

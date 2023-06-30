@@ -1,11 +1,11 @@
-import glob, itertools, random
-
+import glob
+import random
 import torch
 import torch.nn as nn
 from torch.utils.data import random_split, DataLoader
 
 from ds import SoundDS
-from classifier import AudioClassifier
+from inference.classifier import AudioClassifier
 
 
 def training(model, train_dl, num_epochs, device):

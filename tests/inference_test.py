@@ -1,10 +1,11 @@
 import math, sys
 import torch
-from .inference import inference
+from inference import inference
 
 SAMPLE_RATE = 44100
 LENGTH = 5  # seconds
 SAMPLES_PER_CHUNK = SAMPLE_RATE * LENGTH
+
 
 def main():
     if len(sys.argv) < 3:

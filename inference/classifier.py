@@ -1,7 +1,8 @@
 from torch.nn import init
 import torch.nn as nn
 
-class AudioClassifier (nn.Module):
+
+class AudioClassifier(nn.Module):
     # ----------------------------
     # Build the model architecture
     # ----------------------------
@@ -15,9 +16,9 @@ class AudioClassifier (nn.Module):
         self.bn1 = nn.BatchNorm2d(8)
         init.kaiming_normal_(self.conv1.weight, a=0.1)
         bias = self.conv1.bias
-        if bias is not None: 
+        if bias is not None:
             bias.data.zero_()
-        
+
         conv_layers += [self.conv1, self.relu1, self.bn1]
 
         # Second Convolution Block
@@ -26,7 +27,7 @@ class AudioClassifier (nn.Module):
         self.bn2 = nn.BatchNorm2d(16)
         init.kaiming_normal_(self.conv2.weight, a=0.1)
         bias = self.conv2.bias
-        if bias is not None: 
+        if bias is not None:
             bias.data.zero_()
         conv_layers += [self.conv2, self.relu2, self.bn2]
 
@@ -36,7 +37,7 @@ class AudioClassifier (nn.Module):
         self.bn3 = nn.BatchNorm2d(32)
         init.kaiming_normal_(self.conv3.weight, a=0.1)
         bias = self.conv3.bias
-        if bias is not None: 
+        if bias is not None:
             bias.data.zero_()
         conv_layers += [self.conv3, self.relu3, self.bn3]
 
@@ -46,7 +47,7 @@ class AudioClassifier (nn.Module):
         self.bn4 = nn.BatchNorm2d(64)
         init.kaiming_normal_(self.conv4.weight, a=0.1)
         bias = self.conv4.bias
-        if bias is not None: 
+        if bias is not None:
             bias.data.zero_()
         conv_layers += [self.conv4, self.relu4, self.bn4]
 
