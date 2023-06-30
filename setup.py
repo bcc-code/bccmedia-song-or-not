@@ -11,5 +11,5 @@ setup(
     package_data={
         'inference': ['*.pt'],
     },
-    install_requires=["torch", "torchaudio"]
+    install_requires=["torch", "torchaudio", "whisper"]
 )
