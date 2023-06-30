@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='BCC Media - Song or Not',
@@ -7,5 +7,4 @@ setup(
     author='BCC Media',
     author_email='support@bcc.media',
     url='https://github.com/bcc-code/bccmedia-song-or-not',
-    packages=['classifier', 'inference'],
 )
