@@ -96,7 +96,10 @@ def main():
     SAMPLE_RATE = 44100  # Hz
 
     file_list = [(0, x) for x in glob.glob("./speech/split/*.wav")]
-    file_list += [(1, x) for x in glob.glob("./songs/split/*.wav")]
+    #file_list += [(1, x) for x in glob.glob("./songs/split/*.wav")]
+    file_list += [(1, x) for x in glob.glob("./allsang/split/*.wav")]
+    file_list += [(2, x) for x in glob.glob("./arranged_song/split/*.wav")]
+    file_list += [(3, x) for x in glob.glob("./prayer/*.wav")]
     # Add additional types here
 
     random.shuffle(file_list)

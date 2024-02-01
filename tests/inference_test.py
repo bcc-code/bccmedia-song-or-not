@@ -1,6 +1,7 @@
 import math, sys
 import torch
 from inference import inference
+from inference.classifier import AudioClassifier
 
 SAMPLE_RATE = 44100
 LENGTH = 5  # seconds
@@ -13,14 +14,15 @@ def main():
         sys.exit(1)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    model = AudioClassifier()
     model = torch.load(sys.argv[1], map_location=torch.device(device))
     model.eval()
     res = inference(model, sys.argv[2], device, SAMPLE_RATE, SAMPLES_PER_CHUNK, LENGTH)
 
     start = 0
     end = 0
-    current_type = "song"
-
+    current_type = "allsang"
+    #current_type = "song"
     for x in res:
         d = x[1]
         # The sensitivity can be adjusted here a bit
