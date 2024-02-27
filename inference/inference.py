@@ -76,4 +76,9 @@ def inference(model, file_name: str, device: torch.device, sample_rate: int, sam
     print(f'Total items: {total_prediction}')
     preds = torch.cat(predictions)
     x = [list(g) for k, g in itertools.groupby(preds)]
-    return [(('song' if y[0].item() == 1 else 'speech'), len(y)) for y in x]
+    #return [(('song' if y[0].item() == 1 else 'speech'), len(y)) for y in x]
+    return [(('allsang' if y[0].item() == 1 else 'speech' if y[0].item() == 0
+              else 'arranged_song' if y[0].item() == 2 else 'prayer'), len(y)) for y in x]
+    
+    
+
