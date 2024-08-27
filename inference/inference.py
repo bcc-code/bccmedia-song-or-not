@@ -37,7 +37,7 @@ class SingleFileLoader(Dataset):
 
 def load_model(device: torch.device):
     return torch.load(
-        os.path.dirname(os.path.realpath(__file__)) + "/songornot_trained.pt",
+        os.path.dirname(os.path.realpath(__file__)) + "/songornot_256_5s.pt",
         map_location=device
     )
 
