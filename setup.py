@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='song_or_not',
-    version='1.1.0',
+    version='1.2.0',
     description='Detect if audio is song or speech',
     author='BCC Media',
     author_email='support@bcc.media',
